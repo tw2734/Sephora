@@ -69,9 +69,20 @@ Since fake reviews tend to present in short periods where review number increase
 ## Machine Learning Models
 ### Two Methods:
 1. Without TF-IDF
+
+To better describe the content of the review text, we add several columns as features, including whether the review has a title, the complexity score of each review (length of text, average characters per word, average words per sentence, unique vocabulary percentage), and the user information integrity (whether the user gives her information about her skin type, skin tone, and age).
+
+In total, we have 10 features as input: total_reviews, review_rating, free_product, recommendation, have_title, len_of_review, avg_chars_per_word, avg_words_per_sentence, unique_vocab_percentage, information_integrity. And the target result is the labeled fake reviews.
+
 2. With TF-IDF
+
+We want to further explore whether the frequency of each word will influence the prediction result. Therefore, we use TF-IDF (Term Frequency - Inverse Document Frequency) to represent the relative frequency of each word, besides the original 10 features. To reduce feature dimensionality, we remove those words that only appear once.
+
+We test both methods using Random Forest with a small subset of the Moisturizer category, which is the Decollete and Neckcream subcategory. The accuracy of both are nearly the same at around 0.9. Since the TF-IDF method is both time and space consuming, we decide to choose the 10 original features as the model input for the whole Moisturizer category dataset.
+
 ### Seven Models:
-Logistic Regression, Random Forest, Bagging, Neural Network, K-Nearest Neighbors, Multinomial Naive Bayes, and Linear Support Vector Machine
+
+We apply 7 classification models to predict fake reviews, including Logistic Regression, Random Forest, Bagging, Neural Network, K-Nearest Neighbors, Multinomial Naive Bayes, and Linear Support Vector Machine. The test accuracy of these 7 models is quite similar ranging from 0.89 to 0.92, among which Bagging gives the best accuracy score of 0.92. We further apply the Bagging model to the whole dataset and use the prediction result to relabel fake reviews for analysis.
 
 ## Output Analysis
 1. The portion of extreme ratings (1-star and 5-star) in fake reviews are much higher than that in all reviews. Only 63.2% of all reviews have a 5-star review rating while 81.9% of fakes reviews have a 5-star review rating.
